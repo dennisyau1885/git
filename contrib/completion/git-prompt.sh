@@ -259,10 +259,12 @@ __git_ps1_colorize_gitstring ()
 		local c_red='\[\e[31m\]'
 		local c_green='\[\e[32m\]'
 		local c_lblue='\[\e[1;34m\]'
+		local c_yellow='\[\e[33m\]'
 		local c_clear='\[\e[0m\]'
 	fi
 	local bad_color=$c_red
 	local ok_color=$c_green
+	local meh_color=$c_yellow
 	local flags_color="$c_lblue"
 
 	local branch_color=""
@@ -271,22 +273,31 @@ __git_ps1_colorize_gitstring ()
 	else
 		branch_color="$bad_color"
 	fi
+	[[ -n "$i" ]] && branch_color="$meh_color" # staged
+	[[ -n "$u" || "$w" = "*" ]] && branch_color="$bad_color" # unstaged/untracked
 	c="$branch_color$c"
 
 	z="$c_clear$z"
 	if [ "$w" = "*" ]; then
-		w="$bad_color$w"
+		w="$bad_color$w" # * unstaged
 	fi
 	if [ -n "$i" ]; then
-		i="$ok_color$i"
+		i="$meh_color$i" # + staged
 	fi
 	if [ -n "$s" ]; then
-		s="$flags_color$s"
+		s="$flags_color$s" # $ stashed
 	fi
 	if [ -n "$u" ]; then
-		u="$bad_color$u"
+		u="$bad_color$u" # % untracked
 	fi
 	r="$c_clear$r"
+	case "$p" in
+		"=")	p="${c_green}="  ;; # equal to upstream
+		">")	p="${c_yellow}>" ;; # ahead of upstream
+		"<")	p="${c_red}<"    ;; # behind upstream
+		"<>")	p="${c_red}<>"   ;; # diverged from upstream
+	esac
+	p="$p$c_clear"
 }
 
 # Helper function to read the first line of a file into a variable.
@@ -347,7 +358,7 @@ __git_ps1 ()
 	local detached=no
 	local ps1pc_start='\u@\h:\w '
 	local ps1pc_end='\$ '
-	local printf_format=' (%s)'
+	local printf_format='(%s)'
 
 	case "$#" in
 		2|3)	pcmode=yes
