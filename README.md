@@ -1,7 +1,7 @@
 git-prompt-addyellow
 ====================
 
-Quick update to git-prompt.sh and sample git_ps1 to enable easy colorized/colourised bash prompt (tcsh/zsh not done).
+Quick update to git-prompt.sh and sample git_ps1 to enable easy colo{riz,uris}ed bash prompt (tcsh/zsh not done).
 
 Prompt looks like;
 
@@ -56,7 +56,7 @@ git config --global color.status.added yellow
 git config --global color.status.updated yellow
 ```
 
-Logout/login
+Logout/Login
 ```
 newgrp -
 ```
