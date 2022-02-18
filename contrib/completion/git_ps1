@@ -1,7 +1,7 @@
+GIT_PS1_SHOWUNTRACKEDFILES='y'   # %=untracked
 GIT_PS1_SHOWDIRTYSTATE='y'       # *=unstaged, +=staged
 GIT_PS1_SHOWSTASHSTATE='y'       # $=stashes
-GIT_PS1_SHOWUNTRACKEDFILES='y'   # %=untracked
-GIT_PS1_DESCRIBE_STYLE='contains '
+GIT_PS1_DESCRIBE_STYLE='contains'
 GIT_PS1_SHOWUPSTREAM='auto'      # <=behind, >=ahead, <>=conflicts, ==sync
 GIT_PS1_SHOWCOLORHINTS='y'
 GIT_PS1_STATESEPARATOR=''
@@ -9,4 +9,3 @@ GIT_PS1_STATESEPARATOR=''
 _e() { [[ $1 -eq 0 ]] && echo "$" || echo -en "\033[0;31m!\033[0m"; } # RED! if nonzero exit
 
 export PROMPT_COMMAND='e=$?;__git_ps1 "\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]" "\[\033[00m\]\$(_e $e) "'
-# PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1)$ "
