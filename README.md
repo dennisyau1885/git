@@ -17,16 +17,16 @@ u@h:<dir>(<branch><flags>)$
 branch = { yellow    : staged (not commited) changes
          { green     : nothing to commit/clean working tree
  
+         { red %     : untracked file(s)
          { red *     : unstaged file(s)
          { yellow +  : staged file(s)
          { blue $    : stashed file(s)
-         { red %     : untracked file(s)
  flags = { 
-         { green =   : branch is up to date
-         { yellow >  : branch is ahead, push needed
-         { red <     : branch is behind, pull needed
          { red <>    : branch has diverged, pull/merge needed
- 
+         { red <     : branch is behind, pull needed
+         { yellow >  : branch is ahead, push needed
+         { green =   : branch is up to date
+
  $       : Turns to red ! if last exit code was non zero
  ```
  
