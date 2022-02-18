@@ -1,7 +1,7 @@
 git-prompt-addyellow
 ====================
 
-Quick update to git-prompt.sh and sample git_ps1 to enable easy colorized/colourised bash prompt (tcsh/zsh not done).
+Quick update to git-prompt.sh and sample git_ps1 to enable easy colo{riz,uris}ed bash prompt (tcsh/zsh not done).
 
 Prompt looks like;
 
@@ -34,7 +34,7 @@ Quick Install
 =============
 
 Make a directory and grab the required files 
-```
+```bash
 mkdir ~/git-prompt && cd $_
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 wget https://raw.githubusercontent.com/dennisyau1885/git/master/contrib/completion/git-prompt.sh
@@ -42,7 +42,7 @@ wget https://raw.githubusercontent.com/dennisyau1885/git/master/contrib/completi
 ```
 
 Source the new files into your profile
-```
+```bash
 cat <<EOD >>~/.bashrc
 for f in ~/git-prompt/*; do
   . \$f
@@ -51,12 +51,12 @@ EOD
 ```
 
 Change git status add/updated staged files output to be yellow in ~/.gitconfig for consistency 
-```
+```bash
 git config --global color.status.added yellow
 git config --global color.status.updated yellow
 ```
 
-Logout/login
-```
+Logout/Login
+```bash
 newgrp -
 ```
