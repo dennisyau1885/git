@@ -261,11 +261,13 @@ __git_ps1_colorize_gitstring ()
 		local c_lblue='\[\e[1;34m\]'
 		local c_yellow='\[\e[33m\]'
 		local c_clear='\[\e[0m\]'
+		local c_dim='\e[2m'
 	fi
 	local bad_color=$c_red
 	local ok_color=$c_green
 	local meh_color=$c_yellow
 	local flags_color="$c_lblue"
+	local dim_color="$c_clear$c_dim"
 
 	local branch_color=""
 	if [ $detached = no ]; then
@@ -273,8 +275,9 @@ __git_ps1_colorize_gitstring ()
 	else
 		branch_color="$bad_color"
 	fi
-	[[ -n "$i" ]] && branch_color="$meh_color" # staged
-	[[ -n "$u" || "$w" = "*" ]] && branch_color="$bad_color" # unstaged/untracked
+	[[ -n "$i" ]] && branch_color="$meh_color"      # staged
+	[[ "$w" == "*" ]] && branch_color="$bad_color"  # unstaged
+	[[ -n "$u" ]] && branch_color="$dim_color"      # untracked
 	c="$branch_color$c"
 
 	z="$c_clear$z"
@@ -288,7 +291,7 @@ __git_ps1_colorize_gitstring ()
 		s="$flags_color$s" # $ stashed
 	fi
 	if [ -n "$u" ]; then
-		u="$bad_color$u" # % untracked
+		u="$dim_color$u$c_clear" # % untracked
 	fi
 	r="$c_clear$r"
 	case "$p" in
@@ -579,7 +582,7 @@ __git_ps1 ()
 		b="\${__git_ps1_branch_name}"
 	fi
 
-	local f="$h$w$i$s$u"
+	local f="$s$u$w$i" # [s]tashed, [u]ntracked [i]staged [w]unstaged
 	local gitstring="$c$b${f:+$z$f}${sparse}$r$p"
 
 	if [ $pcmode = yes ]; then
