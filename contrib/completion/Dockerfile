@@ -6,8 +6,7 @@ RUN apk update \
     && adduser -s /bin/bash -h /home/gptest -D gptest
 
 USER gptest
-RUN ssh-keygen -P "" -f ~/.ssh/id_rsa \
-    && mkdir ~/git-prompt \
+RUN mkdir ~/git-prompt \
     && echo 'for f in ~/git-prompt/*; do . $f ; done' >>~/.bashrc \
     && git config --global color.status.branch green \
     && git config --global color.status.added yellow \
